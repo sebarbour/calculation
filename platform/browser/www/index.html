@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <style>
+			p, button{
+				font-size:2em;
+			}
+			p.small{
+				font-size:1.5em;
+			}
+		</style>
+		<title>Blank App</title>
+    </head>
+    <body onload="newCalc()">
+        <h1>Exercices de calculation mentale</h1>
+		<div id="calc">
+				
+		</div>
+		<div id="answer">
+			<p></p>
+		</div>
+		<button id="send" onclick="verify()">Vérifier</button>
+		<button id="next" onclick="newCalc()">Suivant</button>
+		<div id="count">
+			<p class="small">Réponses exacts: <span id="countTrue">0</span></p>
+			<p class="small">Réponses inexactes: <span id="countFalse">0</span></p>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script>
+			var answer;
+			var countTrue = 0;
+			var countFalse = 0;
+			
+			function newCalc(){
+				var a = setNumber();
+				var b = setNumber();
+				answer = a*b;
+				var HTML = "<p>"+a+" X "+b+" = <input id='myanswer' type='number' />";
+				document.getElementById("answer").innerHTML ="";
+				document.getElementById("calc").innerHTML = HTML;
+			}
+			function setNumber(){
+				var n1 = Math.floor(Math.random() * 9) + 1;
+				var n2 = Math.floor(Math.random() * 9) + 1;
+				var number = (n1*10)+n2;
+				return number;
+			}
+			function verify(){
+				var myanswer = document.getElementById("myanswer").value;
+				var text;
+				if(answer==myanswer){
+					text = "<p>Exact</p>";
+					countTrue++;
+					document.getElementById("countTrue").innerText = countTrue;
+				}else{
+					text = "<p>Faux ("+answer+")</p>";
+					countFalse++;
+					document.getElementById("countFalse").innerText = countFalse;
+				}
+				document.getElementById("answer").innerHTML = text;
+			}
+		</script>
+    </body>
+</html>
